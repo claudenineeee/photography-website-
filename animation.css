@@ -1,0 +1,119 @@
+/* HEADER PAGE ANIMATION */
+.animated-header {
+    animation: headerFadeIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    will-change: background-color, border-color;
+}
+.animated-header .logo {
+    opacity: 0;
+    transform: translateY(-20px);
+    /* Delays slightly so background starts first, then runs over 0.8s */
+    animation: navItemSlideDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+}
+/* 3. Animate the individual Navigation links with rolling staggering */
+.animated-header .nav-links a,
+.animated-header .nav-links .icon {
+    opacity: 0;
+    transform: translateY(-15px);
+    animation: navItemSlideDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: calc(var(--item-index) * 0.1s + 0.2s);
+}
+@keyframes headerFadeIn {
+    from {
+        background-color: rgba(11, 11, 13, 0);
+        border-bottom-color: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(0px);
+    }
+    to {
+        background-color: rgba(11, 11, 13, 0.85); 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+        backdrop-filter: blur(12px); 
+    }
+}
+@keyframes navItemSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MAIN PAGE ANIMATION */ 
+
+.hero-animate {
+    opacity: 0;
+    will-change: transform, opacity;
+    animation-duration: 1.2s;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    animation-fill-mode: forwards;
+}
+.hero-animate.slide-in-left {
+    transform: translateX(-60px) scale(0.95);
+    animation-name: heroRevealLeft;
+    animation-delay: 0.4s; /* Starts right after the header begins dropping down */
+}
+
+/* 2. Right Column (The Typography Blocks) reveal style */
+.hero-animate.slide-in-right {
+    transform: translateX(40px);
+    animation-name: heroRevealRight;
+    /* Calculates a smooth waterfall loading cascade for the text items */
+    animation-delay: calc(var(--hero-index) * 0.15s + 0.6s);
+}
+
+/* --- THE KEYFRAME CONFIGURATIONS --- */
+
+/* Image slide and scale reveal */
+@keyframes heroRevealLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-60px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* Text slide right reveal */
+@keyframes heroRevealRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ABOUT PAGE ANIMATION */
+.scroll-animate {
+    opacity: 0; /* Hidden by default when the page first loads */
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+/* 2. Variations: Where elements start before scrolling into view */
+.slide-left {
+    transform: translateX(-50px); /* Stored slightly to the left */
+}
+
+.slide-right {
+    transform: translateX(50px); /* Stored slightly to the right */
+}
+
+.fade-in {
+    transform: scale(0.98); /* Stored slightly smaller */
+}
+
+/* 3. The Trigger: What activates the movement when scrolled to */
+.scroll-animate.show {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1); /* Snaps smoothly to position */
+}
+
+/* TOOLS PAGE ANIMATION */
